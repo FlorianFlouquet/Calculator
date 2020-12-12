@@ -3,34 +3,44 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title></title>
+        <title>Calculator</title>
     </head>
     <body>
-        
-        <div id="screen">
-            <p></p>
-        </div>
-        <div id="keyboard">
-            <div id="numbers">
-                <button>7</button>
-                <button>8</button>
-                <button>9</button>
-                <button>4</button>
-                <button>5</button>
-                <button>6</button>
-                <button>1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>0</button>
-                <button>.</button>
+        <canvas></canvas>
+        <div id="calculator">
+            <div id="screen">
+                <p id="calculation"></p>
+                <p id="result"></p>
             </div>
-            <div id="operators">
-                <button>x</button>
-                <button>/</button>
-                <button>+</button>
-                <button>-</button>
-                <button>DEL</button>
-                <button>=</button>
+            <div id="keyboard">
+                <div id="leftKeyboard">
+                    <div id="leftKeyboardTop">
+                        <button style="color: #9CC4F0" onclick="clearEverything()">C</button>
+                        <button value="^">X<sup>n</sup></button>
+                        <button value="%">%</button>
+                    </div>
+                    <div id="leftKeyboardBottom">
+                        <button value="7">7</button>
+                        <button value="8">8</button>
+                        <button value="9">9</button>
+                        <button value="4">4</button>
+                        <button value="5">5</button>
+                        <button value="6">6</button>
+                        <button value="1">1</button>
+                        <button value="2">2</button>
+                        <button value="3">3</button>
+                        <button>__</button>
+                        <button value="0">0</button>
+                        <button value=".">.</button>
+                    </div>
+                </div>
+                <div id="rightKeyboard">
+                    <button value="/">/</button>
+                    <button value="x">x</button>
+                    <button value="-">-</button>
+                    <button value="+">+</button>
+                    <button onclick="equal()">=</button>
+                </div>
             </div>
         </div>
         <script src="script.js"></script>
