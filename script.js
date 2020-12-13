@@ -4,6 +4,7 @@ var firstArg = "";
 var secondArg = "";
 var operator = "";
 var equalHasBeenPressed = false;
+var pointHasBeenPressed = false;
 
 // List of math operators
 
@@ -37,10 +38,17 @@ function operate(a, b, operator) {
             result = substract(a,b);
             break;
         case "x":
-            result = multiply(a,b).toFixed(4);
+            result = multiply(a,b);
             break;
         case "/":
-            result = divide(a,b).toFixed(4);
+            if (b === 0) {
+                alert("You can't do that !");
+                clearEverything();
+                return;
+            }
+            else {
+                result = divide(a,b).toFixed(4);
+            }
             break;
         case "^":
             result = Math.pow(a,b).toExponential(4);
@@ -89,11 +97,13 @@ operatorButtonList.forEach((button) => {
                 operate(firstArg, secondArg, operator);
                 operator = button.value;
             }
+            pointHasBeenPressed = false;
         }
         else if (equalHasBeenPressed && button.textContent !== "=") {
             calculationContent.textContent = `Ans${button.value}`;
             operator = button.value;
             equalHasBeenPressed = false;
+            pointHasBeenPressed = false;
         }
     })
 })
@@ -110,11 +120,13 @@ operatorButtonList2.forEach((button) => {
                 operate(firstArg, secondArg, operator);
                 operator = button.value;
             }
+            pointHasBeenPressed = false;
         }
         else if (equalHasBeenPressed && button.textContent !== "=") {
             calculationContent.textContent = `Ans${button.value}`;
             operator = button.value;
             equalHasBeenPressed = false;
+            pointHasBeenPressed = false;
         }
     })
 })
@@ -122,10 +134,60 @@ operatorButtonList2.forEach((button) => {
 //function equal that operate + provide the user to add digits right after
 
 function equal() {
-    if (!equalHasBeenPressed) {
+    if (!equalHasBeenPressed && secondArg != "") {
         calculationContent.textContent += "=";
         operate(firstArg, secondArg, operator);
         equalHasBeenPressed = true;
         operator = "";
+    }
+}
+
+//function that provide the user to add multiple decimal points on the same number
+
+function decimalPoint() {
+    if (!pointHasBeenPressed && operator === "") {
+        calculationContent.textContent += ".";
+        firstArg += ".";
+        pointHasBeenPressed = true;
+    }
+    else if (!pointHasBeenPressed && operator !== "") {
+        calculationContent.textContent += ".";
+        secondArg += ".";
+        pointHasBeenPressed = true;
+    }
+}
+
+//function undo
+
+function backspace() {
+    //on the screen
+    var x = calculationContent.textContent;
+    var y = "";
+    for (i=0; i < x.length-1; i++) {
+        var z = x[i];
+        y = y.concat(z);
+    }
+    calculationContent.textContent = y;
+    //in the variables
+    if (secondArg !== "") {
+        var a = secondArg;
+        var b = "";
+        for (j=0; j < a.length-1; j++) {
+            var c = a[j];
+            b = b.concat(c);
+        }
+        secondArg = b;
+    }
+    else if (operator !== "") {
+        operator = "";
+    }
+    else {
+        var a = firstArg;
+        var b = "";
+        for (j=0; j < a.length-1; j++) {
+            var c = a[j];
+            b = b.concat(c);
+        }
+        firstArg = b;
     }
 }
